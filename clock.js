@@ -36,9 +36,9 @@
 
       // Ensure attributes are printed with correct digit count (using
       // leading zero if necessary).
-      minutes = ("0" + minutes).substr(-2);
-      seconds = ("0" + seconds).substr(-2);
-      milliseconds = ("00" + milliseconds).substr(-3);
+      minutes = ('0' + minutes).substr(-2);
+      seconds = ('0' + seconds).substr(-2);
+      milliseconds = ('00' + milliseconds).substr(-3);
 
 
       // Update DOM elements
