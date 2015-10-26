@@ -9,6 +9,35 @@
    * corresponding DOM nodes representing the "time-components" (i.e.
    * hours, minutes, seconds, milliseconds).
    */
+
+  /**
+   * Adds leading zeros to a string of digits.
+   *
+   * @param {String} string     The string of digits to which we want
+   *                            to add leading zeros.
+   * @param {Number} digitCount The number of digits we would like the
+   *                            string above to occupy.
+   */
+  function addLeadingZeroes(string, digitCount) {
+
+    var zeroString,
+        hasLeadingZero,
+        hasCorrectLength;
+
+    // Add maximum number of zeros to the front of the string
+    zeroString = '';
+    for (var i = 0; i < digitCount - 1; i++) {
+      zeroString += '0';
+    }
+    hasLeadingZero = zeroString + string;
+
+    // Trim string to desired length to eliminate any unnecessary
+    // leading zeros
+    hasCorrectLength = hasLeadingZero.substr(digitCount * -1);
+
+    return hasCorrectLength;
+  }
+
   $(document).ready(function(){
 
     var dateTime,
@@ -35,10 +64,10 @@
       hours = dateTime.getHours();
 
       // Ensure attributes are printed with correct digit count (using
-      // leading zero if necessary).
-      minutes = ('0' + minutes).substr(-2);
-      seconds = ('0' + seconds).substr(-2);
-      milliseconds = ('00' + milliseconds).substr(-3);
+      // addLeadingZeros function as defined above).
+      minutes = addLeadingZeroes(minutes, 2);
+      seconds = addLeadingZeroes(seconds, 2);
+      milliseconds = addLeadingZeroes(milliseconds, 3);
 
 
       // Update DOM elements
