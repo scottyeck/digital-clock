@@ -1,50 +1,56 @@
-(function(window, $, undefined) {
+/*
+ * This is an exercise in creating a Digital Clock using Javascript
+ * and jQuery used in NYCDA's Introductory Web Development courses.
+ *
+ * We create this clock by establishing a timed interval, during
+ * each iteration of which we get the current time and update the
+ * corresponding DOM nodes representing the "time-components" (i.e.
+ * hours, minutes, seconds, milliseconds).
+ */
 
-  /*
-   * This is an exercise in creating a Digital Clock using Javascript
-   * and jQuery used in NYCDA's Introductory Web Development courses.
-   *
-   * We create this clock by establishing a timed interval, during
-   * each iteration of which we get the current time and update the
-   * corresponding DOM nodes representing the "time-components" (i.e.
-   * hours, minutes, seconds, milliseconds).
-   */
-  $(document).ready(function(){
+var dateTime,
+    milliseconds,
+    seconds,
+    minutes,
+    hours;
 
-    var dateTime,
-        milliseconds,
-        seconds,
-        minutes,
-        hours;
+// Cache DOM elements
+var $milliseconds = $('#milliseconds'),
+    $seconds = $('#seconds'),
+    $minutes = $('#minutes'),
+    $hours = $('#hours');
 
-    // Cache DOM elements
-    var $milliseconds = $('#milliseconds'),
-        $seconds = $('#seconds'),
-        $minutes = $('#minutes'),
-        $hours = $('#hours');
+function addLeadingZero(baseString, digits) {
+  var zeroString = '';
+  for (var i = 0; i < digits - 1; i++) {
+    zeroString += '0';
+  }
 
-    window.setInterval(function(){
+  return (zeroString + baseString).substr(-1 * digits);
+}
 
-      // Get current time
-      dateTime = new Date();
+window.setInterval(function(){
 
-      // Store desired time attributes
-      milliseconds = dateTime.getMilliseconds();
-      seconds = dateTime.getSeconds();
-      minutes = dateTime.getMinutes();
-      hours = dateTime.getHours();
+  // Get current time
+  dateTime = new Date();
 
-      // Ensure minutes attribute is printed with two digits (using
-      // leading zero if necessary).
-      minutes = ("0" + minutes).substr(-2);
+  // Store desired time attributes
+  milliseconds = dateTime.getMilliseconds();
+  seconds = dateTime.getSeconds();
+  minutes = dateTime.getMinutes();
+  hours = dateTime.getHours();
 
-      // Update DOM elements
-      $milliseconds.text(milliseconds);
-      $seconds.text(seconds);
-      $minutes.text(minutes);
-      $hours.text(hours);
-    }, 100);
+  // Ensure minutes attribute is printed with two digits (using
+  // leading zero if necessary).
+  // minutes = ("0" + minutes).substr(-2);
+  
+  minutes = addLeadingZero(minutes, 2);
+  seconds = addLeadingZero(seconds, 2);
+  milliseconds = addLeadingZero(milliseconds, 3);
 
- });
-
-}(this, this.jQuery));
+  // Update DOM elements
+  $milliseconds.text(milliseconds);
+  $seconds.text(seconds);
+  $minutes.text(minutes);
+  $hours.text(hours);
+}, 100);
